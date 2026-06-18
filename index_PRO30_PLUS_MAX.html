@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vietlott AI PRO 30 PLUS MAX</title>
+<link rel="icon" href="icon.png">
+<meta name="theme-color" content="#111">
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(270deg,#1a1a2e,#16213e,#0f3460,#533483);background-size:600% 600%;animation:bg 20s infinite;color:#fff;text-align:center}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#splash{position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;font-size:34px;z-index:9999;animation:fade 3s forwards}
+@keyframes fade{80%{opacity:1}100%{opacity:0;visibility:hidden}}
+.quick{position:fixed;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px}
+button{border:none;border-radius:18px;padding:10px 14px;background:gold;color:#000;font-weight:bold;margin:4px}
+.ball{display:inline-flex;width:58px;height:58px;border-radius:50%;align-items:center;justify-content:center;background:gold;color:#000;margin:4px;font-weight:bold}
+.power{background:#d00;color:#fff}
+.panel{padding:10px}
+.barwrap{width:85%;height:14px;background:#333;margin:auto;border-radius:12px;overflow:hidden}
+.bar{height:100%;width:50%;background:red}
+.fire{position:fixed;bottom:0;width:6px;height:6px;background:orange;border-radius:50%;animation:r 1.2s forwards}
+@keyframes r{to{transform:translateY(-100vh)}}
+</style>
+</head>
+<body>
+<div id="splash">🚀 PRO 30 PLUS MAX</div>
+<h2>Trợ Lý Dự Đoán Vietlott AI PRO 30 PLUS MAX</h2>
+<div id="clock"></div>
+<div>🟢 Đang kết nối mô phỏng thời gian thực</div>
+
+<div class="panel">
+<h3>Jackpot Meter AI</h3>
+<div class="barwrap"><div id="bar" class="bar"></div></div>
+<div id="meterText">50% - Tiếp tục quan sát</div>
+</div>
+
+<h3 id="title">Kết quả dự đoán</h3>
+<div id="result">Sẵn sàng</div>
+
+<div><b>🔥 Số nóng:</b> <span id="hot">07 14 23 32 41 45</span></div>
+<div><b>❄️ Số lạnh:</b> <span id="cold">02 04 11 17 29 40</span></div>
+
+<div class="quick">
+<button onclick="mega()">Mega</button>
+<button onclick="power()">Power</button>
+<button onclick="lotto()">Lotto</button>
+</div>
+
+<div>
+<button onclick="aiMega()">🤖 AI Mega</button>
+<button onclick="aiPower()">🤖 AI Power</button>
+<button onclick="bingo()">Bingo 18</button>
+<button onclick="keno()">Keno</button><br>
+<button onclick="max3d()">Max 3D</button>
+<button onclick="max3dplus()">Max 3D+</button>
+<button onclick="max3dpro()">Max 3D Pro</button>
+<button onclick="birth()">Ngày sinh</button>
+</div>
+
+<div id="birthBox" style="display:none">
+<select id="d"></select><select id="m"></select><select id="y"></select>
+<button onclick="predictBirth()">Dự đoán</button>
+</div>
+
+<script>
+setInterval(()=>clock.innerText=new Date().toLocaleString('vi-VN'),1000);
+function r(m){return Math.floor(Math.random()*m)+1}
+function u(c,m){let a=[];while(a.length<c){let n=r(m);if(!a.includes(n))a.push(n)}return a.sort((x,y)=>x-y)}
+function beep(){try{let a=new(window.AudioContext||window.webkitAudioContext)();let o=a.createOscillator();let g=a.createGain();o.connect(g);g.connect(a.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.2);o.stop(a.currentTime+.2)}catch(e){}}
+function fx(){beep();if(navigator.vibrate)navigator.vibrate([120,80,120]);for(let i=0;i<20;i++){let f=document.createElement('div');f.className='fire';f.style.left=Math.random()*100+'%';document.body.appendChild(f);setTimeout(()=>f.remove(),1200)}}
+function meter(){let p=Math.floor(Math.random()*100);bar.style.width=p+'%';meterText.textContent=p+'% - '+(p>70?'Nên theo dõi':'Tiếp tục quan sát')}
+function show(nums,p,title){document.getElementById('title').textContent='🎰 '+title;result.innerHTML='';nums.forEach(n=>{let b=document.createElement('div');b.className='ball';b.textContent=n;result.appendChild(b)});if(p){let b=document.createElement('div');b.className='ball power';b.textContent=p;result.appendChild(b)}fx();meter()}
+function mega(){show(u(6,45),0,'Mega 6/45')}
+function power(){show(u(6,55),r(55),'Power 6/55')}
+function lotto(){show(u(5,35),0,'Lotto 5/35')}
+function bingo(){show(u(5,18),0,'Bingo 18')}
+function keno(){show(u(10,80),0,'Keno')}
+function max3d(){show([r(9),r(9),r(9)],0,'Max 3D')}
+function max3dplus(){show([r(9),r(9),r(9),r(9)],0,'Max 3D+')}
+function max3dpro(){show([r(9),r(9),r(9),r(9),r(9)],0,'Max 3D Pro')}
+function aiMega(){show(u(6,45),0,'AI Mega')}
+function aiPower(){show(u(6,55),r(55),'AI Power')}
+function birth(){birthBox.style.display='block'}
+function predictBirth(){show(u(6,45),0,'Dự đoán theo ngày sinh')}
+for(let i=1;i<=31;i++) d.add(new Option(i,i));
+for(let i=1;i<=12;i++) m.add(new Option(i,i));
+for(let i=1950;i<=2025;i++) y.add(new Option(i,i));
+</script>
+</body>
+</html>
